@@ -4,7 +4,7 @@
 	<img ng-src="{{item.Poster}}" alt="" class="img-responsive">
 </div>
 <ul class="video-list" data-page="1" data-spy="scroll" data-target=".navbar-example">
-	<li ng-repeat="video in videos" get-video data-filename="{{video.filename}}"  ng-if="!video.status && !video.deleted">
+	<li ng-repeat="video in videos track by $index" get-video data-filename="{{video.filename}}"  ng-if="!video.status && !video.deleted">
 		{{video.filename}}, {{video.status}}
 		<span class="glyphicon glyphicon-info-sign" title="{{video.folder}}"></span>
 		<a ng-click="delete(video)"><span class="glyphicon glyphicon-trash"></span></a>

@@ -1,4 +1,3 @@
-<h1>Videos</h1>
 <form action="" class="form-horizontal">
 	<div class="form-group">
 		
@@ -13,8 +12,8 @@
 		<select name="" id="" ng-options="o as o for o in genres" ng-model="search.genre" class="form-control"></select>
 	</div>
 </form>
-<ul>
+<ol class="list-block">
 	<li ng-repeat="item in videos | filter: search">
 		<a href="#/videos/{{item.id}}/{{item.imdb}}">{{item.title}}</a>
 	</li>
-</ul>
+</ol>

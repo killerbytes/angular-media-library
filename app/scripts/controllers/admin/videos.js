@@ -68,13 +68,16 @@ app.controller('AdminVideoCtrl', [
 			if(!item.data){
 				Imdb.get(item.imdbID).then(function(res){
 					angular.extend( video, convertVideo(res) );
+					video.attachments = video.poster;
+					video.status = true;
+					updateImdb(video)
 				})
 			}else{
 				angular.extend( video, convertVideo(item.data) );
-			}
 				video.attachments = video.poster;
 				video.status = true;
 				updateImdb(video)
+			}
 
 		}
 
