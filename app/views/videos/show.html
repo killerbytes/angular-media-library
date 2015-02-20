@@ -1,0 +1,28 @@
+<h1>{{imdb.Title}} <a href="#/videos/{{id}}/edit" class="btn btn-default pull-right">Edit</a></h1>
+<div class="media">
+  <div class="media-left">
+    <a href="#">
+      <img class="media-object" ng-src="{{imdb.Poster}}" alt="...">
+    </a>
+  </div>
+  <div class="media-body">
+    <p>
+      <strong>Actors: </strong>
+      <span ng-repeat="(key,value) in imdb.Actors.split(',')"><a href="#/search/actors/{{value.trim()}}">{{value}}</a>{{$last ? '' : ', '}}</span>
+    </p>
+    <p>
+      <strong>Genre: </strong>
+      <span  ng-repeat="(key,value) in imdb.Genre.split(',')"><a href="#/search/genre/{{value.trim()}}">{{value}}</a>{{$last ? '' : ', '}}</span>
+    </p>
+    <p><strong>Plot: </strong>{{imdb.Plot}}</p>
+    <p><strong>Year: </strong><a href="#/search/year/{{imdb.Year.trim()}}">{{imdb.Year}}</a></p>
+    <p><strong>Rating: </strong>{{imdb.imdbRating}}</p>
+    <p><strong>Director: </strong>{{imdb.Director}}</p>
+    <p><strong>Runtime: </strong>{{imdb.Runtime}}</p>
+
+    <p><strong>Filesize: </strong>{{ Utils.humanFileSize(video.size) }}</p>
+    <p><strong>Filename: </strong>{{ video.filename }}</p>
+    <p><strong>Folder: </strong>{{ video.folder }}</p>
+  </div>
+</div>
+

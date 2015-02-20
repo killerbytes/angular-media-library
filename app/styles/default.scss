@@ -1,0 +1,25 @@
+a{
+	cursor: pointer;
+}
+.poster-frame{
+	position: fixed;
+	background: red;
+	top: 0;
+	right: 0;
+	width: 20%;
+}
+
+.search-results{
+	li{
+		padding: 5px;
+		.glyphicon{
+			display: none
+		}
+	}
+	li:hover{
+		background-color: #EEE;
+		.glyphicon{
+			display: inline-block;
+		}
+	}
+}

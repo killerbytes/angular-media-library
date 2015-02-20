@@ -1,0 +1,7 @@
+<h1 class="page-header">Search</h1>
+<h2><span class="text-capitalize">{{ getType()[0] }}</span>: {{search[getType()[0]]}}</h2>
+<ul>
+	<li ng-repeat="item in videos | filter: search">
+		<a href="#/videos/{{item.id}}/{{item.imdb}}">{{item.title}}</a>
+	</li>
+</ul>
