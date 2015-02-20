@@ -21,7 +21,7 @@ var app = angular
   .constant('config', {
     // apiBase: 'http://localhost:3000',
     apiBase: '/data',
-    imdbBase: 'http://www.omdbapi.com'
+    imdbBase: '//www.omdbapi.com'
   })
   .config(function ($routeProvider) {
     $routeProvider
