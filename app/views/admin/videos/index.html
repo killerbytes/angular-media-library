@@ -1,0 +1,11 @@
+<h1>Videos</h1>
+<div class="poster-frame">
+	<strong>{{item.Title}}</strong>
+	<img ng-src="{{item.Poster}}" alt="" class="img-responsive">
+</div>
+<button class="btn btn-default" ng-click="downloadPosters()">Download Posters</button>
+<ul class="video-list" data-page="1" data-spy="scroll" data-target=".navbar-example">
+	<li ng-repeat="video in videos" ng-if="video.status && !video.deleted">
+		{{video.title}}
+	</li>
+</ul>

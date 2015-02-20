@@ -28,15 +28,23 @@ app.factory('mdVideo', function ($q, $http, config) {
 
 	Model.get = function(id){
 		var d = $q.defer();
-		$http.get(config.apiBase + '/videos/'+ id + '.json', {}, {
-			headers: {
-	        'Accept': undefined
-			}
+		if(config.apiBase == '/data'){
+			Model.list(1,99999, true).then(function(res){
+				d.resolve(_.find(res, {id: parseInt(id) }));
+			})
 
-		})
-		.success(function (res) {
-			d.resolve(res);
-		});
+		}else{
+			$http.get(config.apiBase + '/videos/'+ id + '.json', {}, {
+				headers: {
+		        'Accept': undefined
+				}
+
+			})
+			.success(function (res) {
+				d.resolve(res);
+			});
+
+		}
 		return d.promise;			
 	}
 

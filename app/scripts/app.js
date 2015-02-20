@@ -19,6 +19,7 @@ var app = angular
     'ui.bootstrap'
   ])
   .constant('config', {
+    imgBase: '/',
     // apiBase: 'http://localhost:3000',
     apiBase: '/data',
     imdbBase: '//www.omdbapi.com'
@@ -33,17 +34,17 @@ var app = angular
           genres: ['mdGenre', function(d){ return d.list() }]
         }
       })
-      .when('/videos/:id/:imdb', {
-        templateUrl: 'views/videos/show.html',
-        controller: 'VideosCtrl',
+      .when('/videos/:id/edit', {
+        templateUrl: 'views/videos/edit.html',
+        controller: 'AdminVideoCtrl',
         resolve: {
           videos: ['mdVideo', function(d){ return [] }],
           genres: ['mdGenre', function(d){ return d.list() }]
         }
       })
-      .when('/videos/:id/edit', {
-        templateUrl: 'views/videos/edit.html',
-        controller: 'AdminVideoCtrl',
+      .when('/videos/:id/:imdb', {
+        templateUrl: 'views/videos/show.html',
+        controller: 'VideosCtrl',
         resolve: {
           videos: ['mdVideo', function(d){ return [] }],
           genres: ['mdGenre', function(d){ return d.list() }]
@@ -56,8 +57,15 @@ var app = angular
           videos: ['mdVideo', function(d){ return d.list(1, 999999, true) }]
         }
       })
-      .when('/admin/videos', {
-        templateUrl: 'views/admin/videos.html',
+      .when('/admin/videos/', {
+        templateUrl: 'views/admin/videos/index.html',
+        controller: 'AdminVideoCtrl',
+        resolve: {
+          videos: ['mdVideo', function(d){ return d.list(1,999999,true) }]
+        }
+      })
+      .when('/admin/videos/raw', {
+        templateUrl: 'views/admin/videos/raw.html',
         controller: 'AdminVideoCtrl',
         resolve: {
           videos: ['mdVideo', function(d){ return d.list(1,100,false) }]
@@ -66,4 +74,11 @@ var app = angular
       .otherwise({
         redirectTo: '/videos'
       });
-  });
+  })
+
+.run([
+  '$rootScope',
+  'config', 
+  function($rootScope, config){
+    $rootScope.config = config
+}])

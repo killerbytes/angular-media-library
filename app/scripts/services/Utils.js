@@ -38,6 +38,32 @@ app.factory('mdUtils', function ($q, $http, config) {
    	return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
 	};
 
+
+	Model.getBase64FromImageUrl =function (URL) {
+
+	    var img = new Image();
+	    img.src = URL;
+	    img.onload = function () {
+
+	    	console.log(this)
+
+	    var canvas = document.getElementById('canvas');
+	    // console.log(canvas)
+	    canvas.width =this.width;
+	    canvas.height =this.height;
+
+	    var ctx = canvas.getContext("2d");
+	    ctx.drawImage(this, 0, 0);
+
+
+	    
+	    var dataURL = canvas.toDataURL("image/png");
+
+	    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+			
+	    }
+	}
+
 	return Model;
 
 
