@@ -3,6 +3,7 @@ $icon-font-path: "../../../bower_components/bootstrap-sass-official/assets/fonts
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import "bootstrap.min.scss";
 @import "default.scss";
 
 body { padding-top: 70px; }
