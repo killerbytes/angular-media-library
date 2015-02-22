@@ -10,13 +10,24 @@ app.factory('mdUtils', function ($q, $http, config) {
 		/\.mkv/g,
 		/\.avi/g,
 		/\.mp4/g,
-		/\./g,
+		/\./g
+		]
+		var strip_no_space = [
+		/\//g
 		]
 		var name = filename;
 		_.forEach(strip, function(i){
 			name = name.replace(i, " ");
 		})
-		
+		_.forEach(strip_no_space, function(i){
+			name = name.replace(i, "");
+		})
+
+		for(var ctr = 1990; ctr<=2015; ctr++){
+			var re = new RegExp(ctr, 'g');
+			name = name.replace(re, "")
+		}
+
 		return name.split(" ").slice(0, 2).join(" ");
 	}
 

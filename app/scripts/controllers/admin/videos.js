@@ -68,15 +68,14 @@ app.controller('AdminVideoCtrl', [
 			if(!item.data){
 				Imdb.get(item.imdbID).then(function(res){
 					angular.extend( video, convertVideo(res) );
-					video.attachments = video.poster;
 					video.status = true;
-					updateImdb(video)
+					updateImdb(video);
 				})
 			}else{
 				angular.extend( video, convertVideo(item.data) );
 				video.attachments = video.poster;
 				video.status = true;
-				updateImdb(video)
+				updateImdb(video);
 			}
 
 		}
@@ -99,6 +98,12 @@ app.controller('AdminVideoCtrl', [
 		}
 
 		function updateImdb(video){
+			if(video.poster == "N/A" || video.poster == "posters/placeholder.jpg"){
+				video.attachments = null;
+			}else{
+				video.attachments = video.poster;
+			}
+
 			delete video.results;
 			Video.update(video).then(function(){
 				console.log('updated')
@@ -121,6 +126,7 @@ app.controller('AdminVideoCtrl', [
 			});
 
 			modalInstance.result.then(function (res) {
+				console.log(res)
 				item.results = res
 			}, function () {
 

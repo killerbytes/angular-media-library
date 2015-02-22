@@ -1,14 +1,12 @@
 $icon-font-path: "../../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
-// @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
-@import "bootstrap.min.css";
 
 @import "default.scss";
 
-body {
-  padding: 0;
-}
+body { padding-top: 70px; }
+
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,

@@ -68,7 +68,7 @@ var app = angular
         templateUrl: 'views/admin/videos/raw.html',
         controller: 'AdminVideoCtrl',
         resolve: {
-          videos: ['mdVideo', function(d){ return d.list(1,100,false) }]
+          videos: ['mdVideo', function(d){ return d.list(1,100000,false) }]
         }
       })
       .otherwise({
