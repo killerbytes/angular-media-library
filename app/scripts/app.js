@@ -20,8 +20,8 @@ var app = angular
   ])
   .constant('config', {
     imgBase: '/',
-    // apiBase: 'http://localhost:3000',
-    apiBase: '/data',
+    apiBase: 'http://localhost:3000',
+    // apiBase: '/data',
     imdbBase: '//www.omdbapi.com'
   })
   .config(function ($routeProvider) {
