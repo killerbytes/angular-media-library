@@ -302,6 +302,11 @@ module.exports = function (grunt) {
     //   dist: {}
     // },
 
+    'json-minify': {
+      build: {
+        files: '<%= yeoman.dist %>/data/*.json'
+      }
+    },
     imagemin: {
       dist: {
         files: [{
@@ -470,6 +475,7 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     'uglify',
+    'json-minify',
     'filerev',
     'usemin',
     'htmlmin'
