@@ -14,6 +14,6 @@
 </form>
 <ol class="list-block">
 	<li ng-repeat="item in videos | filter: search">
-		<a href="#/videos/{{item.id}}/{{item.imdb}}">{{item.title}}</a>
+		<a href="#/videos/{{item.id}}/{{item.imdb}}">{{item.title}} <span ng-if="item.is3D" class="label label-danger">3D</span></a>
 	</li>
 </ol>

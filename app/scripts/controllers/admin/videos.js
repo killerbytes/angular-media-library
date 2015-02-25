@@ -77,7 +77,6 @@ app.controller('AdminVideoCtrl', [
 				video.status = true;
 				updateImdb(video);
 			}
-
 		}
 
 		function convertVideo(video){
@@ -95,6 +94,10 @@ app.controller('AdminVideoCtrl', [
 		$scope.delete = function(item){
 			item.deleted = true;
 			updateImdb(item);
+		}
+
+		$scope.saveVideo = function(video){
+			updateImdb(video)
 		}
 
 		function updateImdb(video){
