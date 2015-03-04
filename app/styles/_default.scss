@@ -1,5 +1,6 @@
-a{
+a, a:hover{
 	cursor: pointer;
+	text-decoration: none;
 }
 .poster-frame{
 	position: fixed;
@@ -17,9 +18,30 @@ a{
 		}
 	}
 	li:hover{
+
 		background-color: #EEE;
 		.glyphicon{
 			display: inline-block;
 		}
 	}
 }
+
+.hover-grow{
+	margin-bottom: 100px;
+	a span, a span:hover{
+ 		font-size: 11px;
+	}
+	li{
+ 		transition: font-size 0.3s ease, background-color 0.3s ease;
+	}
+	li:hover{
+		font-size: 130%;
+		display: block;
+	}
+}
+
+.search-form-container{
+	width: 100%;
+	left: 0;
+}
+

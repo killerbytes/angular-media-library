@@ -16,12 +16,13 @@ var app = angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'duScroll',
     'ui.bootstrap'
   ])
   .constant('config', {
     imgBase: '/',
-    // apiBase: 'http://localhost:3000',
-    apiBase: '/data',
+    apiBase: 'http://localhost:3000',
+    // apiBase: '/data',
     imdbBase: '//www.omdbapi.com'
   })
   .config(function ($routeProvider) {
@@ -30,7 +31,7 @@ var app = angular
         templateUrl: 'views/videos/index.html',
         controller: 'VideosCtrl',
         resolve: {
-          videos: ['mdVideo', function(d){ return d.list(1,1000,true) }],
+          videos: ['mdVideo', function(d){ return d.list(1,99999,true) }],
           genres: ['mdGenre', function(d){ return d.list() }]
         }
       })

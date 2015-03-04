@@ -13,6 +13,7 @@
     "angular-bootstrap": "0.10.0",
     "angular-strap": "*",
     "angular-scroll": "*",
+    "moment": "*",
     "lodash": "~2.4.1"
   },
   "devDependencies": {
