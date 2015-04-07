@@ -21,6 +21,7 @@
 <ul class="hover-grow list-unstyled">
 	<li ng-repeat="item in videos | filter: search">
 		<a href="#/videos/{{item.id}}/{{item.imdb}}" data-title="{{item.title}}">{{item.title}} 
+			<span class="label label-default">{{item.year}}</span>
 			<span ng-if="item.is3D" class="label label-danger">3D</span>
 			<span ng-if="isNew(item.created_at)" class="label label-success">New</span>
 		</a>
