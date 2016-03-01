@@ -1,6 +1,6 @@
 'use strict';
 app.factory('mdImdb', function ($q, $http, config) {
-	var $injector = angular.injector(['ng']);
+	config = config[config['env']];
 
 	var Model = function(data){
 		angular.extend(this, data);

@@ -3,11 +3,35 @@ $icon-font-path: "../../../bower_components/bootstrap-sass-official/assets/fonts
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-@import "bootstrap.min.scss";
+@import "theme/bootstrap.min.scss";
 @import "default.scss";
 
-body { padding-top: 70px; }
+body { 
+	padding-top: 70px; 
+	color: #999;
+}
 
+.margin-bottom-20{ margin-bottom: 20px; }
+.margin-bottom-30{ margin-bottom: 30px; }
+.margin-bottom-40{ margin-bottom: 40px; }
+
+.glyphicon-star.active{
+	color: yellow;
+}
+
+.avatar{
+	width: 40px;
+	display: inline-block;
+	border-radius: 100px;
+	overflow: hidden;
+	position: absolute;
+	top: 10px;
+}
+.avatar+span{
+	vertical-align: top;
+	display: inline-block;
+	margin-left: 45px;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -73,7 +97,7 @@ body { padding-top: 70px; }
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 1140px;
   }
 
   /* Remove the padding we set earlier */

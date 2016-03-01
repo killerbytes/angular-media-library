@@ -1,5 +1,5 @@
 'use strict';
-app.factory('mdUtils', function ($q, $http, config) {
+app.factory('mdUtils', function ($q, $http, config, mdVideo, mdGenre, $localStorage) {
 
 	var Model = function(data){
 		angular.extend(this, data);
@@ -73,6 +73,15 @@ app.factory('mdUtils', function ($q, $http, config) {
 	    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 			
 	    }
+	}
+
+	Model.updateLocal = function(){
+		$q.all([mdVideo.list(), mdGenre.list()]).then(function(res){
+			console.log(res)
+			return false;
+			$localStorage.videos = res[0];
+			$localStorage.genres = res[1];
+		})
 	}
 
 	return Model;

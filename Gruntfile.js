@@ -18,7 +18,8 @@ module.exports = function (grunt) {
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
-    dist: 'dist'
+    // dist: '/Users/joelcarlos/test/ionicTest/www'
+    dist: './dist'
   };
 
   // Define the configuration for all the tasks
@@ -46,7 +47,10 @@ module.exports = function (grunt) {
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
+        tasks: ['compass:server', 'autoprefixer'],
+        options: {
+        	spawn: false
+        }
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -68,7 +72,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -137,6 +141,9 @@ module.exports = function (grunt) {
     // Empties folders to start fresh
     clean: {
       dist: {
+      	options: {
+      		force:  true
+      	},
         files: [{
           dot: true,
           src: [
@@ -179,7 +186,8 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath:  /\.\.\//,
+		exclude: ['bower_components/bootstrap-sass-official/assets/javascripts']      	
       },
       test: {
         devDependencies: true,

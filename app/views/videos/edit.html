@@ -1,27 +1,48 @@
-<h1>Edit</h1>
-<h2>{{video.title}}</h2>
-<p>{{video.filename}}</p>
-<p>{{video.folder}}</p>
-<form name="form" ng-submit="saveVideo(video)" novalidate>
-	<div class="checkbox">
-		<label>
-			<input type="checkbox" ng-model="video.is3D" name="is3D"> 3D
-		</label>
-	</div>
-	<div class="form-group">
-		<button type="submit" class="btn btn-primary">Save</button>
+<h1>{{video.title}}</h1>
 
-	</div>
-</form>
+  <div class="media-left">
+    <a href="#">
+      <img 
+      class="media-object" 
+      ng-show="video.attachments"
+      ng-src="{{video.attachments}}" 
+      alt="...">
+    </a>
+  </div>
+  <div class="media-body">
 
-<div class="poster-frame">
-	<strong>{{item.Title}}</strong>
-	<img ng-src="{{item.Poster}}" alt="" class="img-responsive">
-</div>
+    <p><strong>Filesize: </strong>{{ Utils.humanFileSize(video.size) }}</p>
+    <p><strong>Filename: </strong>{{ video.filename }}</p>
+    <p><strong>Folder: </strong>{{ video.folder }}</p>
+    <p><strong>Added: </strong>{{ video.created_at }}</p>
+	<form name="form" ng-submit="saveVideo(video)" novalidate>
+		<div class="form-group">
+			<label for="">Title</label>
+			<input type="text" class="form-control" ng-model="video.title" name="title">
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" ng-model="video.is3D" name="is3D"> 3D
+			</label>
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" ng-model="video.status" name="status"> Active
+			</label>
+			<a ng-click="delete(video)" class="pull-right glyphicon glyphicon-trash"></a>
+
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Save</button>
+		</div>
+	</form>
+
+  </div>
 
 
-<a ng-click="lookup(video)" data-animation="am-fade-and-scale" data-placement="center" data-template="views/template/lookup.html" bs-modal="modal">
-	<span class="glyphicon glyphicon-search"></span>
+<hr>
+<a class="pull-right" ng-click="lookup(video)" data-animation="am-fade-and-scale" data-placement="center" data-template="views/template/lookup.html" bs-modal="modal">
+		<span class="glyphicon glyphicon-search"></span>
 </a>
 
 <ul class="search-results">

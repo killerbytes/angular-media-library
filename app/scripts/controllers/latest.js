@@ -7,7 +7,7 @@
 * # MainCtrl
 * Controller of the mediaLibraryWebApp
 */
-app.controller('VideosCtrl', [
+app.controller('LatestCtrl', [
 	'$scope',
 	'$rootScope',
 	'$modal',
@@ -22,15 +22,22 @@ app.controller('VideosCtrl', [
 	'favorites',
 	'User',
 	function ($scope, $rootScope, $modal, $routeParams, $window, $filter, $sce, Video, Imdb, Utils, videos, favorites, User) {
-
 		$scope.Utils = Utils;
 		$scope.$sce = $sce;
 		$scope.id = $routeParams.id;
+
+		var videos =_.sortBy(videos, function(i){
+			return moment(i.created_at);
+		}).reverse();
+
 		_.forEach(favorites, function(i){
 			var found = _.find(videos, {id: i.video});
 			if(found) found.like = true;
 			
 		})
+
+		$scope.videos = _.take(videos, 100);
+
 		$scope.isNew = function(date){
 			return moment().diff(date, "days") < 30 ;
 		}
@@ -45,33 +52,6 @@ app.controller('VideosCtrl', [
 		}
 
 
-		$scope.TOC = [];
-		_.forEach(videos, function(video){
-			if($scope.TOC.indexOf(video.title.charAt(0).toUpperCase()) === -1){
-				$scope.TOC.push(video.title.charAt(0))
-			}
-		})
-		if($routeParams.id){
-			Video.get($routeParams.id).then(function(res){
-				$scope.video = res;
-			})
-			Imdb.get($routeParams.imdb).then(function(res){
-				$scope.imdb = res;			
-			})
-			User.isFavorite($routeParams.id).then(function(res){
-				if(res.$value === null){
-					$scope.isFavorite = false;
-				}else{
-					$scope.isFavorite = true;					
-				}
-			});
-		}
-
-		$scope.videos = $filter('filter')(videos, function (item) {			
-            if (item.title.charAt(0).toLowerCase() == $routeParams.char.toLowerCase()) {
-                return item
-            }
-    	})
 	
 
 	}]);

@@ -1,0 +1,25 @@
+<div class="media" ng-class="{ 'is-new': isNew(item.created_at) }">
+  <div class="media-left">
+    <a href="#/videos/{{item.id}}/{{item.imdb}}">      
+      <div class="loading"></div>
+		  <img class="media-object is-loading" ng-if="item.attachments_file_name" ng-src="{{config.imgBase}}posters/placeholder_thumb.jpg" lazy-src="{{config.imgBase}}posters/{{item.id}}/medium/{{item.attachments_file_name}}" alt="">
+		  <img class="media-object" ng-if="!item.attachments_file_name" lazy-src="{{config.imgBase}}posters/placeholder_thumb.jpg" alt="">
+    </a>
+  </div>
+  <div class="media-body">
+    <h3 class="media-headingxx"><a href="#/videos/{{item.id}}/{{item.imdb}}">{{item.title}} </a><small>({{item.year}})</small></h3>
+    <p>
+    	Stars: <span ng-repeat="(key,value) in item.actors.split(',')"><a href="#/search?actors={{value.trim()}}">{{value}}</a>{{$last ? '' : ', '}}</span>
+	</p>
+    <p>
+    	Genre: <span ng-repeat="(key,value) in item.genre.split(',')"><a href="#/search?genre={{value.trim()}}">{{value}}</a>{{$last ? '' : ', '}}</span>
+	</p>
+	<p>
+		Rating:
+		{{item.rating}}
+	</p>
+	<span ng-if="item.is3D" class="label label-danger">3D</span>
+	<span ng-if="isNew(item.created_at)" class="label label-success">New</span>
+
+  </div>
+</div>	

@@ -4,9 +4,10 @@
 	<img ng-src="{{item.Poster}}" alt="" class="img-responsive">
 </div>
 <ol class="video-list" data-page="1" data-spy="scroll" data-target=".navbar-example">
-	<li ng-repeat="video in videos track by $index" get-video data-filename="{{video.filename}}"  ng-if="!video.status && !video.deleted">
-		{{video.filename}}, {{video.status}}
+	<li ng-repeat="video in videos track by $index" get-video data-filename="{{video.filename}}">
+		{{video.filename}} - {{ formatFileSize(video.size) }}
 		<span class="glyphicon glyphicon-info-sign" title="{{video.folder}}"></span>
+		<a ng-click="inactive(video)" class="glyphicon glyphicon-remove-sign"></a>
 		<a ng-click="delete(video)"><span class="glyphicon glyphicon-trash"></span></a>
 		<a ng-click="lookup(video)" data-animation="am-fade-and-scale" data-placement="center" data-template="views/template/lookup.html" bs-modal="modal">
 			<span class="glyphicon glyphicon-search"></span>
@@ -21,5 +22,5 @@
 		</ul>
 	</li>
 </ol>
-<button ng-click="load()">Load More</button>
+<button ng-click="load()" class="btn btn-default">Load More</button>
 

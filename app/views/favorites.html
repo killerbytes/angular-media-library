@@ -1,0 +1,4 @@
+<h1>Favorites</h1>
+<ul>
+	<li ng-repeat="item in favorites"><a href="#/videos/{{item.id}}/{{item.imdb}}">{{ item.title }}</a> <a href="" ng-click="favorite(item)"><span class="glyphicon glyphicon-remove"></span></a></li>
+</ul>

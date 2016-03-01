@@ -1,4 +1,3 @@
-var xx;
 'use strict';
 
 /**
@@ -13,14 +12,47 @@ app.controller('SearchCtrl', [
 	'$modal',
 	'$routeParams',
 	'mdVideo',
-	'videos',
-	function ($scope, $modal, $routeParams, Video, videos) {
-		$scope.videos = videos;
-		$scope.search = {};
-		$scope.search[$routeParams.type] = $routeParams.query
+	'mdGenre',
+	function ($scope, $modal, $routeParams, Video, Genre) {
+		$scope.inProgress = true;
 
+		if(!_.isEmpty($routeParams)){
+			Video.list().then(function(res){
+				$scope.videos = res;
+				$scope.inProgress = false;
+			})
 
-		$scope.getType = function(obj){
-			return Object.keys($scope.search);
+			Genre.list().then(function(res){
+				$scope.genres = res;
+			})
 		}
+
+		$scope.query = {
+			title: $routeParams.title || '',
+			actors: $routeParams.actors || '',
+			year: $routeParams.year || '',
+			genre: $routeParams.genre || ''
+		}
+
+		$scope.search = function (item, size) {
+			var modalInstance = $modal.open({
+				templateUrl: 'views/template/search.html',
+				controller: 'ModalInstanceCtrl',
+				size: size || 'sm',
+				resolve: {
+					items: function () {
+						return {
+							genres: $scope.genres
+						};
+					}
+				}
+			});
+
+			modalInstance.result.then(function (res) {
+			}, function () {
+
+			});
+		};
+
+
 	}]);

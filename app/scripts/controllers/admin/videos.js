@@ -13,34 +13,52 @@ app.controller('AdminVideoCtrl', [
 	'$modal',
 	'$routeParams',
 	'$document',
+	'$window',
+	'$location',
 	'mdVideo',
+	'mdUtils',
 	'mdImdb',
 	'videos',
-	function ($scope, $modal, $routeParams, $document, Video, Imdb, videos) {
-
+	function ($scope, $modal, $routeParams, $document, $window, $location, Video, Utils, Imdb, videos) {
+		$scope.Utils = Utils;
 		$scope.videos = videos;
 		$scope.page = 1;
+		var currentPage = null;
+
+		var attachments = null;
 
 		if($routeParams.id){
 			Video.get($routeParams.id).then(function(res){
 				$scope.video = res;
+				attachments = res.attachments;
 			})
 		}
 
+		// $scope.page = $location.path().split('/admin/videos/')[1];
+
 		$scope.$watch('page', function(value, old){
-			if(value != old){
+			if(value != old || !value ){
 				if($scope.isLoading) return false;
 				loadMore($scope.page);
 			}
 		})
 
 		function loadMore(page){
+			if(!page) return false;
+			if(page == currentPage) return false;
 			$scope.isLoading = true;
-			Video.list(page).then(function(res){
+			Video.raw({status:false, deleted: false, page: page}).then(function(res){
 				$scope.videos = $scope.videos.concat(res);
+				currentPage = page;
 				$scope.list.data('page', page);
 				$scope.isLoading = false;
 			})
+		}
+		function autoLoad(){
+			if(angular.element('.video-list').height() <= $window.innerHeight + 1000){
+				$scope.load();
+				loadMore($scope.page)
+			}			
 		}
 		$scope.load = function(){
 			$scope.list = angular.element('.video-list');
@@ -59,26 +77,28 @@ app.controller('AdminVideoCtrl', [
 				if(!i.attachments_file_name){
 					i.attachments = i.poster;
 					updateImdb(i)
-				}
-				
+				}				
 			})
 		}
 
 		$scope.selectImdb = function(item, video){
-			if(!item.data){
-				Imdb.get(item.imdbID).then(function(res){
-					angular.extend( video, convertVideo(res) );
-					video.status = true;
-					updateImdb(video);
-				})
-			}else{
-				angular.extend( video, convertVideo(item.data) );
-				video.attachments = video.poster;
+			removeFromList(video)
+			Imdb.get(item.imdbID).then(function(res){
+				angular.extend( video, convertVideo(res) );
 				video.status = true;
+				if(item.Poster !== video.attachments) video.attachments = item.Poster;
 				updateImdb(video);
-			}
+			})
 		}
 
+		$scope.formatFileSize =function(size){
+		    var sizes = [' Bytes', ' KB', ' MB', ' GB', ' TB', ' PB', ' EB', ' ZB', ' YB'];
+		    for (var i = 1; i < sizes.length; i++)
+		    {
+		        if (size < Math.pow(1024, i)) return (Math.round((size/Math.pow(1024, i-1))*100)/100) + sizes[i-1];
+		    }
+		    return size;
+		}
 		function convertVideo(video){
 			return {
 				title: video.Title,
@@ -87,13 +107,29 @@ app.controller('AdminVideoCtrl', [
 				genre: video.Genre,
 				actors: video.Actors,
 				rating: video.imdbRating,
-				poster: video.Poster
+				attachments: video.Poster,
+				poster: video.Poster,
+				// photo: video.Poster
 			};
 		}
 
 		$scope.delete = function(item){
+			removeFromList(item);
+			Video.delete(item).then(function(){
+			})
+		}
+		$scope.inactive = function(item){
+			delete item.attachments;
+			item.status = false;
 			item.deleted = true;
-			updateImdb(item);
+			removeFromList(item);
+			Video.update(item).then(function(){
+			})
+		}
+
+		function removeFromList(item){
+			$scope.videos.splice($scope.videos.indexOf(item), 1)
+			autoLoad();
 		}
 
 		$scope.saveVideo = function(video){
@@ -101,16 +137,10 @@ app.controller('AdminVideoCtrl', [
 		}
 
 		function updateImdb(video){
-			if(video.poster == "N/A" || video.poster == "posters/placeholder.jpg"){
-				video.attachments = null;
-			}else{
-				video.attachments = video.poster;
-			}
+			if(video.poster == "N/A") video.poster = "posters/placeholder.jpg";
+			if(video.attachments == "N/A") video.attachments = null;
 
-			delete video.results;
-			Video.update(video).then(function(){
-				console.log('updated')
-			})
+			Video.update(video).then(function(){})
 		}
 
 
@@ -129,7 +159,6 @@ app.controller('AdminVideoCtrl', [
 			});
 
 			modalInstance.result.then(function (res) {
-				console.log(res)
 				item.results = res
 			}, function () {
 

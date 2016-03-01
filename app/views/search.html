@@ -1,7 +1,11 @@
-<h1 class="page-header">Search <small class="text-capitalize">{{ getType()[0] }}: {{search[getType()[0]]}}</small></h1>
+<h1 class="page-header">Search</h1>
+<p ng-show="filtered.length == 0 && !inProgress">Nothing found!</p>
+<div class="row">
+	<div class="col-sm-4 col-md-3" ng-repeat="item in filtered = (videos | filter: query)">
+		<video-views />
+	</div>
+</div>
 
-<ol>
-	<li ng-repeat="item in videos | filter: search">
-		<a href="#/videos/{{item.id}}/{{item.imdb}}">{{item.title}}</a>
-	</li>
-</ol>
+
+
+
