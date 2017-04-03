@@ -36,6 +36,9 @@ var app = angular
 		env: 'production'
 	}
 })
+.config(['$locationProvider', function($locationProvider) {
+	$locationProvider.hashPrefix('');
+}])
 .config(function ($routeProvider, $locationProvider) {
 	$routeProvider
 	.when('/latest', {
@@ -133,6 +136,5 @@ var app = angular
 		if(config.env == 'development'){
 			$rootScope.isAdmin = true;
 		}
-
 	}
 )

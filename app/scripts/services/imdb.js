@@ -13,16 +13,16 @@ app.factory('mdImdb', function ($q, $http, config) {
 		.success(function (res) {
 			d.resolve(res);
 		});
-		return d.promise;			
+		return d.promise;
 	}
 
 	Model.get = function(imdbId){
 		var d = $q.defer();
 		$http.get(config.imdbBase + '?i=' + imdbId )
-		.success(function (res) {
+		.then(function (res) {
 			d.resolve(res);
 		});
-		return d.promise;			
+		return d.promise;
 	}
 
 
@@ -33,7 +33,7 @@ app.factory('mdImdb', function ($q, $http, config) {
 		.success(function (res) {
 			d.resolve(res);
 		});
-		return d.promise;			
+		return d.promise;
 	}
 
 

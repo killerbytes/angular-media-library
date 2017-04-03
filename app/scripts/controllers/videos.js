@@ -10,7 +10,6 @@
 app.controller('VideosCtrl', [
 	'$scope',
 	'$rootScope',
-	'$modal',
 	'$routeParams',
 	'$window',
 	'$filter',
@@ -21,7 +20,7 @@ app.controller('VideosCtrl', [
 	'videos',
 	'favorites',
 	'User',
-	function ($scope, $rootScope, $modal, $routeParams, $window, $filter, $sce, Video, Imdb, Utils, videos, favorites, User) {
+	function ($scope, $rootScope, $routeParams, $window, $filter, $sce, Video, Imdb, Utils, videos, favorites, User) {
 
 		$scope.Utils = Utils;
 		$scope.$sce = $sce;
@@ -29,7 +28,7 @@ app.controller('VideosCtrl', [
 		_.forEach(favorites, function(i){
 			var found = _.find(videos, {id: i.video});
 			if(found) found.like = true;
-			
+
 		})
 		$scope.isNew = function(date){
 			return moment().diff(date, "days") < 30 ;
@@ -56,22 +55,22 @@ app.controller('VideosCtrl', [
 				$scope.video = res;
 			})
 			Imdb.get($routeParams.imdb).then(function(res){
-				$scope.imdb = res;			
+				$scope.imdb = res;
 			})
 			User.isFavorite($routeParams.id).then(function(res){
 				if(res.$value === null){
 					$scope.isFavorite = false;
 				}else{
-					$scope.isFavorite = true;					
+					$scope.isFavorite = true;
 				}
 			});
 		}
 
-		$scope.videos = $filter('filter')(videos, function (item) {			
+		$scope.videos = $filter('filter')(videos, function (item) {
             if (item.title.charAt(0).toLowerCase() == $routeParams.char.toLowerCase()) {
                 return item
             }
     	})
-	
+
 
 	}]);

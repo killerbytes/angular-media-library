@@ -28,18 +28,21 @@
 
 app.directive("lazySrc", function($document, $window, $timeout) {
     var lazyImages = [];
-    var docHeight = 0;     
-    var winHeight = $window.innerHeight;   
+    var docHeight = 0;
+    var winHeight = $window.innerHeight;
 
     function loadImage(){
         $('img.is-loading').each(function(index){
         	var $this = $(this);
             if(!$this.hasClass('loaded')){
                 if($this.get(0).getBoundingClientRect().top < (winHeight) ){
-                    $this.load(function(){
-                        lazyImages.splice(index, 0);
-                        $(this).removeClass('is-loading').addClass('loaded')
-                    }).attr("src", $this.attr("lazy-src")).addClass('is-loading');
+                  $this.attr("src", $this.attr("lazy-src"))
+                  .removeClass('is-loading')
+                  .addClass('loaded')
+                    // $this.load(function(){
+            //             lazyImages.splice(index, 0);
+            //             $(this).removeClass('is-loading').addClass('loaded')
+                    // }).attr("src", $this.attr("lazy-src")).addClass('is-loading');
                 }
             }
         })
@@ -70,7 +73,7 @@ app.directive("lazySrc", function($document, $window, $timeout) {
 	    	loadImage();
     	}, 50)
     }
-    
+
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {

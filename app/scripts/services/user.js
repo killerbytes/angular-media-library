@@ -1,19 +1,20 @@
 'use strict';
 app.factory('User', function ($rootScope, $q, $firebaseArray, $firebaseObject) {
-	var ref = new Firebase("https://media-library.firebaseio.com/users");
+	// var ref = firebase.database().ref();
+	// console.log(ref)
 	var uid;
 
 	var Model = function(data){
 		angular.extend(this, data);
 	};
 
-	Model.profile = function(user){		
+	Model.profile = function(user){
 		var d = $q.defer();
 		uid = user.uid;
 		$firebaseObject(ref.child(user.uid)).$loaded(function(res){
 			d.resolve(res);
 		})
-		return d.promise;			
+		return d.promise;
 	}
 
 	Model.favorites = function(){
@@ -21,7 +22,7 @@ app.factory('User', function ($rootScope, $q, $firebaseArray, $firebaseObject) {
 		if(uid){
 			$firebaseArray( ref.child(uid).child('favorites') ).$loaded(function(res){
 				d.resolve(res);
-			})						
+			})
 		}else{
 			d.resolve([])
 		}
@@ -33,7 +34,7 @@ app.factory('User', function ($rootScope, $q, $firebaseArray, $firebaseObject) {
 		if(uid){
 			$firebaseObject( ref.child(uid).child('favorites').child(id) ).$loaded(function(res){
 				d.resolve(res);
-			})						
+			})
 		}
 		return d.promise;
 	}
@@ -51,7 +52,7 @@ app.factory('User', function ($rootScope, $q, $firebaseArray, $firebaseObject) {
 					video: video.id
 				}, function(res){
 					d.resolve(res);
-				})			
+				})
 			}
 		}
 		return d.promise;
@@ -62,10 +63,10 @@ app.factory('User', function ($rootScope, $q, $firebaseArray, $firebaseObject) {
 		users.set({
 			name: authData.google.displayName,
 			id: authData.google.id,
-			avatar: authData.google.profileImageURL			
+			avatar: authData.google.profileImageURL
 		})
 		Model.profile(authData).then(function(res){
-			$rootScope.user = res;	
+			$rootScope.user = res;
 		})
 	}
 

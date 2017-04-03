@@ -10,10 +10,10 @@ app.factory('mdVideo', function ($q, $http, $filter, $localStorage, $routeParams
 	};
 
 	Model.list = function(status){
+		status = status || true;
 		var d = $q.defer();
 		if(env.env == "production"){
 			if(!videos){
-				// if(!$localStorage.videos){
 					$http.get(config['production'].apiBase + '/videos.json', {
 						cache: false,
 						params: {
@@ -21,15 +21,15 @@ app.factory('mdVideo', function ($q, $http, $filter, $localStorage, $routeParams
 							deleted: false
 						}
 					})
-					.success(function (res) {
-						$localStorage.videos = res;
-						videos = res;
-						d.resolve(res);
+					.then(function (res) {
+						videos = res.data;
+						$localStorage.videos = videos;
+						d.resolve(videos);
 					});
 
 				// }else{
 				// 	videos = $localStorage.videos;
-				// 	d.resolve(videos);				
+				// 	d.resolve(videos);
 				// }
 			}else{
 				d.resolve(videos);
@@ -45,7 +45,7 @@ app.factory('mdVideo', function ($q, $http, $filter, $localStorage, $routeParams
 				d.resolve(res);
 			});
 		}
-		return d.promise;			
+		return d.promise;
 	}
 
 	Model.deleted = function(){
@@ -85,7 +85,7 @@ app.factory('mdVideo', function ($q, $http, $filter, $localStorage, $routeParams
 					d.resolve(_.find(res, {id: parseInt(id) }));
 				})
 			}else{
-				d.resolve(_.find(videos, {id: parseInt(id) }));				
+				d.resolve(_.find(videos, {id: parseInt(id) }));
 			}
 
 		}else{
@@ -95,12 +95,12 @@ app.factory('mdVideo', function ($q, $http, $filter, $localStorage, $routeParams
 				}
 
 			})
-			.success(function (res) {
+			.then(function (res) {
 				d.resolve(res);
 			});
 
 		}
-		return d.promise;			
+		return d.promise;
 	}
 
 	Model.update = function(item){
@@ -115,7 +115,7 @@ app.factory('mdVideo', function ($q, $http, $filter, $localStorage, $routeParams
 			// console.log(videos)
 			d.resolve(res);
 		});
-		return d.promise;			
+		return d.promise;
 	}
 
 	Model.delete = function(item){
@@ -124,7 +124,7 @@ app.factory('mdVideo', function ($q, $http, $filter, $localStorage, $routeParams
 		.success(function (res) {
 			d.resolve(res);
 		});
-		return d.promise;			
+		return d.promise;
 	}
 
 

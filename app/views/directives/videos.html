@@ -2,10 +2,10 @@
 			<div class="new-label" ng-if="isNew(item.created_at)"></div>
 
 				  <img class="media-object is-loading" ng-if="item.attachments" ng-src="{{config.imgBase}}images/placeholder_thumb.jpg" lazy-src="{{item.thumbnail}}" alt="">
-				  <!-- 
+				  <!--
 				  <img class="media-object is-loading" ng-if="item.attachments" ng-src="{{config.imgBase}}posters/placeholder_thumb.jpg" lazy-src="{{item.poster}}" alt="">
 				   -->
-				  
+
       <div class="details">
 
 	    <p>
@@ -25,20 +25,20 @@
 
       </div>
       <div class="caption">
-      	
+
 
         <div>
         	<strong><a class="truncate" href="#/videos/{{item.id}}/{{item.imdb}}">{{ item.title }} </a></strong>
-        	
+
         </div>
         <small>{{item.year}}
 
         </small>
 			<span class="pull-right">
 				<a href="" ng-if="user" ng-click="favorite(item)"><small><span class="glyphicon" ng-class="{'glyphicon-heart active' : item.like , 'glyphicon-heart-empty': !item.like}"></span></small></a>
-				<a href="" ng-if="!user" ng-controller="AuthCtrl" ng-click="auth.login()"><small><span class="glyphicon glyphicon-heart-empty"></span></small></a>        		
+				<a href="" ng-if="!user" ng-controller="AuthCtrl" ng-click="auth.login()"><small><span class="glyphicon glyphicon-heart-empty"></span></small></a>
         	</span>
-			
+
 
       </div>
     </div>

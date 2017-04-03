@@ -63,19 +63,19 @@
 					</li>
 					<li ng-if="!user" ng-click="$parent.isCollapsed = !$parent.isCollapsed"><a href="" ng-click="auth.login()">Login</a></li>
 					<li ng-if="user" class="dropdown visible-md visible-sm visible-lg" uib-dropdown>
-						
+
 						<a href="#/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
 							<span class="avatar">
 								<img class="img-responsive" ng-src="{{user.avatar}}" alt="">
-							</span>								
+							</span>
 							<span>{{user.name}} <span class="caret"></span></span>
-							
+
 						</a>
 
 						<ul class="dropdown-menu">
 							<li><a href="#/favorites">Favorites</a></li>
 							<li><a href="" ng-click="auth.logout()">Logout</a></li>
-						</ul>						
+						</ul>
 					</li>
   					<li class="dropdown visible-xs">
   						<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ng-click="isAdminCollapsed = !isAdminCollapsed">
@@ -85,7 +85,7 @@
       						<ul class="nav navbar-nav">
 								<li ng-click="$parent.isCollapsed = !$parent.isCollapsed"><a href="#/favorites">Favorites</a></li>
 								<li ng-click="$parent.isCollapsed = !$parent.isCollapsed"><a href="" ng-click="auth.logout()">Logout</a></li>
-      						</ul>	      						
+      						</ul>
       					</div>
   					</li>
 
@@ -117,6 +117,20 @@
 // ga('send', 'pageview');
 </script>
 
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD7Li0Zu9JiqaoOcflZom1BBonRFu4nEkE",
+    authDomain: "media-library.firebaseapp.com",
+    databaseURL: "https://media-library.firebaseio.com",
+    projectId: "firebase-media-library",
+    storageBucket: "firebase-media-library.appspot.com",
+    messagingSenderId: "605315783938"
+  };
+  firebase.initializeApp(config);
+</script>
+
 <!-- build:js(.) scripts/vendor.js -->
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -129,11 +143,11 @@
 <script src="bower_components/angular-touch/angular-touch.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="bower_components/angular-scroll/angular-scroll.js"></script>
-<script src="bower_components/firebase/firebase.js"></script>
-<script src="bower_components/angularfire/dist/angularfire.js"></script>
 <script src="bower_components/moment/moment.js"></script>
 <script src="bower_components/lodash/dist/lodash.compat.js"></script>
 <script src="bower_components/ngstorage/ngStorage.js"></script>
+<script src="bower_components/firebase/firebase.js"></script>
+<script src="bower_components/angularfire/dist/angularfire.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 

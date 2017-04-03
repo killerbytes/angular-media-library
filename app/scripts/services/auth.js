@@ -1,6 +1,6 @@
 'use strict';
 app.factory('Auth', function ($rootScope, $q, $location, $timeout, $firebaseAuth, User) {
-	var ref = new Firebase("https://media-library.firebaseio.com");
+	// var ref = firebase.database().ref();
 	var user;
 
 	// $rootScope.$watch('user', function(value, oldValue){
@@ -8,7 +8,7 @@ app.factory('Auth', function ($rootScope, $q, $location, $timeout, $firebaseAuth
 	// 	// if(value != oldValue){
 	// 		User.profile(user).then(function(res){
 	// 			$rootScope.user = res;
-	// 		})			
+	// 		})
 	// 	// }
 	// })
 
@@ -23,8 +23,13 @@ app.factory('Auth', function ($rootScope, $q, $location, $timeout, $firebaseAuth
 	}
 
 	Model.login = function(){
-		// ref.authWithOAuthRedirect("google", authHandler);		
-		ref.authWithOAuthPopup("google", authHandler);
+		var provider = new firebase.auth.GoogleAuthProvider();
+		firebase.auth().signInWithPopup(provider).then(function(result) {
+			console.log(result)
+		});
+
+		// ref.authWithOAuthRedirect("google", authHandler);
+		// ref.authWithOAuthPopup("google", authHandler);
 	}
 
 	// Create a callback to handle the result of the authentication
@@ -47,7 +52,7 @@ app.factory('Auth', function ($rootScope, $q, $location, $timeout, $firebaseAuth
 			}else{
 				$rootScope.user = res;
 			}
-		})			
+		})
 
 	  } else {
 	    console.log("User is logged out");
@@ -55,7 +60,7 @@ app.factory('Auth', function ($rootScope, $q, $location, $timeout, $firebaseAuth
 	  }
 	}
 
-	ref.onAuth(authDataCallback);
+	// ref.onAuth(authDataCallback);
 
 
 	return Model;

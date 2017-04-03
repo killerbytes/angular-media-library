@@ -10,7 +10,6 @@
 app.controller('LatestCtrl', [
 	'$scope',
 	'$rootScope',
-	'$modal',
 	'$routeParams',
 	'$window',
 	'$filter',
@@ -21,7 +20,7 @@ app.controller('LatestCtrl', [
 	'videos',
 	'favorites',
 	'User',
-	function ($scope, $rootScope, $modal, $routeParams, $window, $filter, $sce, Video, Imdb, Utils, videos, favorites, User) {
+	function ($scope, $rootScope, $routeParams, $window, $filter, $sce, Video, Imdb, Utils, videos, favorites, User) {
 		$scope.Utils = Utils;
 		$scope.$sce = $sce;
 		$scope.id = $routeParams.id;
@@ -33,7 +32,7 @@ app.controller('LatestCtrl', [
 		_.forEach(favorites, function(i){
 			var found = _.find(videos, {id: i.video});
 			if(found) found.like = true;
-			
+
 		})
 
 		$scope.videos = _.take(videos, 100);
@@ -52,6 +51,6 @@ app.controller('LatestCtrl', [
 		}
 
 
-	
+
 
 	}]);

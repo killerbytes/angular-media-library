@@ -1,7 +1,7 @@
 <h1 class="page-header">Latest Releases</h1>
 <div class="row">
 	<div class="col-sm-4 col-md-3" ng-repeat="item in videos">
-		<video-views />
+		<video-views item=item/>
 	</div>
 </div>
 
@@ -13,10 +13,3 @@
 		<li ng-repeat="(key, value) in TOC"><a href="#/videos/{{value}}">{{value}}</a></li>
 	</ul>
 </div>
-
-
-
-
-
-
-

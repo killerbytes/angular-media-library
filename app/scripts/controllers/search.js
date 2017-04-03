@@ -9,11 +9,10 @@
 */
 app.controller('SearchCtrl', [
 	'$scope',
-	'$modal',
 	'$routeParams',
 	'mdVideo',
 	'mdGenre',
-	function ($scope, $modal, $routeParams, Video, Genre) {
+	function ($scope, $routeParams, Video, Genre) {
 		$scope.inProgress = true;
 
 		if(!_.isEmpty($routeParams)){
